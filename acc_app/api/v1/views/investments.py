@@ -7,6 +7,9 @@ from uuid import uuid4
 
 @views_bp.route('/investments', methods=['GET'], strict_slashes=False)
 def get_investments():
+    """
+    Get all investments
+    """
     with app.app_context():
         items = db.session.query(Investment).\
             order_by(Investment.created_at).all()
@@ -17,6 +20,9 @@ def get_investments():
 @views_bp.route('/users/<user_id>/initial_investment',
                 methods=['GET'], strict_slashes=False)
 def get_initial_investment(user_id):
+    """
+    Get the initial investment for a user
+    """
     with app.app_context():
         user = db.session.query(User).filter_by(id=user_id).first()
         if user:
@@ -31,6 +37,9 @@ def get_initial_investment(user_id):
 @views_bp.route('users/<user_id>/investments',
                 methods=['GET'], strict_slashes=False)
 def get_user_investments(user_id):
+    """
+    Get all investments for a user
+    """
     with app.app_context():
         items = db.session.query(Investment).filter_by(user_id=user_id)\
             .order_by(Investment.created_at).all()
@@ -41,6 +50,9 @@ def get_user_investments(user_id):
 @views_bp.route('users/<user_id>/investments',
                 methods=['POST'], strict_slashes=False)
 def add_investments(user_id):
+    """
+    Add an investment
+    """
     with app.app_context():
         if request.is_json:
             user = db.session.query(User).filter_by(id=user_id).first()

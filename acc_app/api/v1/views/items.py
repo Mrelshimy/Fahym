@@ -8,6 +8,9 @@ from uuid import uuid4
 
 @views_bp.route('/items', methods=['GET'], strict_slashes=False)
 def get_items():
+    """
+    Get all items
+    """
     with app.app_context():
         items = db.session.query(Item).order_by(desc(Item.created_at)).all()
         data = [item.to_dict() for item in items]
@@ -16,6 +19,9 @@ def get_items():
 
 @views_bp.route('/items/<item_id>', methods=['GET'], strict_slashes=False)
 def get_item(item_id):
+    """
+    Get a single item
+    """
     with app.app_context():
         item = db.session.query(Item).get(item_id)
         if item is None:
@@ -25,6 +31,9 @@ def get_item(item_id):
 
 @views_bp.route('users/<user_id>/items', methods=['GET'], strict_slashes=False)
 def get_user_items(user_id):
+    """
+    Get all items for a user
+    """
     with app.app_context():
         items = db.session.query(Item).filter_by(user_id=user_id)\
             .order_by(desc(Item.created_at)).all()
@@ -35,6 +44,9 @@ def get_user_items(user_id):
 @views_bp.route('users/<user_id>/items',
                 methods=['POST'], strict_slashes=False)
 def post_item(user_id):
+    """
+    Add an item
+    """
     with app.app_context():
         if request.is_json:
             data = request.get_json()
@@ -60,6 +72,9 @@ def post_item(user_id):
 @views_bp.route('/items/<item_id>',
                 methods=['DELETE'], strict_slashes=False)
 def delete_item(item_id):
+    """
+    Delete an item
+    """
     with app.app_context():
         item = db.session.query(Item).get(item_id)
         if item is None:
@@ -78,6 +93,9 @@ def delete_item(item_id):
 @views_bp.route('/items/<item_id>',
                 methods=['PUT'], strict_slashes=False)
 def update_item(item_id):
+    """
+    Update an item
+    """
     with app.app_context():
         item = db.session.query(Item).get(item_id)
         if item is None:

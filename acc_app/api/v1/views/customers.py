@@ -8,6 +8,9 @@ from uuid import uuid4
 
 @views_bp.route('/customers', methods=['GET'], strict_slashes=False)
 def get_customers():
+    """
+    Get all customers
+    """
     with app.app_context():
         customers = db.session.query(Customer)\
             .order_by(desc(Customer.created_at)).all()
@@ -18,6 +21,9 @@ def get_customers():
 @views_bp.route('/customers/<customer_id>',
                 methods=['GET'], strict_slashes=False)
 def get_customer(customer_id):
+    """
+    Get a single customer
+    """
     with app.app_context():
         customer = db.session.query(Customer).get(customer_id)
         if customer is None:
@@ -28,6 +34,9 @@ def get_customer(customer_id):
 @views_bp.route('/users/<user_id>/customers',
                 methods=['GET'], strict_slashes=False)
 def get_user_customers(user_id):
+    """
+    Get all customers for a user
+    """
     with app.app_context():
         customers = db.session.query(Customer).filter_by(user_id=user_id)\
             .order_by(desc(Customer.created_at)).all()
@@ -38,6 +47,9 @@ def get_user_customers(user_id):
 @views_bp.route('/users/<user_id>/customers',
                 methods=['POST'], strict_slashes=False)
 def post_customer(user_id):
+    """
+    Add a customer
+    """
     with app.app_context():
         if request.is_json:
             data = request.get_json()
@@ -63,6 +75,9 @@ def post_customer(user_id):
 @views_bp.route('/customers/<customer_id>',
                 methods=['DELETE'], strict_slashes=False)
 def delete_customer(customer_id):
+    """
+    Delete a customer
+    """
     with app.app_context():
         customer = db.session.query(Customer).get(customer_id)
         if customer is None:
@@ -75,6 +90,9 @@ def delete_customer(customer_id):
 @views_bp.route('/customers/<customer_id>',
                 methods=['PUT'], strict_slashes=False)
 def update_customer(customer_id):
+    """
+    Update a customer
+    """
     with app.app_context():
         customer = db.session.query(Customer).get(customer_id)
         if customer is None:
