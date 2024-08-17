@@ -2,13 +2,18 @@ from flask import jsonify, abort, request
 from sqlalchemy import desc
 from acc_app.api.v1.views import views_bp
 from acc_app import db, app
-from acc_app.models.models import Purchase_invoice, Supplier, Item, purchase_item
+from acc_app.models.models import (Purchase_invoice,
+                                   Supplier, Item, purchase_item)
 from uuid import uuid4
 from datetime import datetime
+
 
 @views_bp.route('/purchase_invoices',
                 methods=['GET'], strict_slashes=False)
 def get_purchase_invoices():
+    """
+    Get all purchase invoices
+    """
     with app.app_context():
         invoices = db.session.query(Purchase_invoice)\
             .order_by(desc(Purchase_invoice.created_at)).all()
@@ -19,6 +24,9 @@ def get_purchase_invoices():
 @views_bp.route('/purchase_invoices/<invoice_id>',
                 methods=['GET'], strict_slashes=False)
 def get_pur_invoice(invoice_id):
+    """
+    Get a single purchase invoice
+    """
     with app.app_context():
         invoice = db.session.query(Purchase_invoice).get(invoice_id)
         if invoice is None:
@@ -29,8 +37,12 @@ def get_pur_invoice(invoice_id):
 @views_bp.route('users/<user_id>/purchase_invoices',
                 methods=['GET'], strict_slashes=False)
 def get_user_purchase_invoices(user_id):
+    """
+    Get all purchase invoices for a user
+    """
     with app.app_context():
-        invoices = db.session.query(Purchase_invoice).filter_by(user_id=user_id)\
+        invoices = db.session.query(Purchase_invoice)\
+            .filter_by(user_id=user_id)\
             .order_by(desc(Purchase_invoice.created_at)).all()
         data = [purchase_invoice.to_dict() for purchase_invoice in invoices]
         return jsonify(data), 200
@@ -39,6 +51,9 @@ def get_user_purchase_invoices(user_id):
 @views_bp.route('/users/<user_id>/purchase_invoices',
                 methods=['POST'], strict_slashes=False)
 def post_pur_invoice(user_id):
+    """
+    Add a purchase invoice
+    """
     with app.app_context():
         if request.is_json:
             data = request.get_json()
@@ -54,12 +69,11 @@ def post_pur_invoice(user_id):
             supplier = db.session.query(Supplier)\
                 .filter_by(name=data['supplier']).one()
             del(data['supplier'])
-            data['supplier_id'] = supplier.id       
+            data['supplier_id'] = supplier.id
             data['user_id'] = user_id
             data['id'] = str(uuid4())
             items = data['items']
             del(data['items'])
-            
             purchase_invoice = Purchase_invoice(**data)
             db.session.add(purchase_invoice)
             for item in items:
@@ -75,7 +89,7 @@ def post_pur_invoice(user_id):
                     item_price=item['price'])
                 db.session.execute(purchase_item_entry)
                 get_item.stock += float(item['quantity'])
-            
+
             db.session.commit()
             return jsonify({"message": "Invoice added successfully"}), 200
         else:
@@ -85,12 +99,16 @@ def post_pur_invoice(user_id):
 @views_bp.route('/purchase_invoices/<invoice_id>',
                 methods=['DELETE'], strict_slashes=False)
 def delete_pur_invoice(invoice_id):
+    """
+    Delete a purchase invoice
+    """
     with app.app_context():
         invoice = db.session.query(Purchase_invoice).get(invoice_id)
         if invoice is None:
             abort(404)
-        db.session.execute(purchase_item.delete()\
-                           .where(purchase_item.c.purchase_invoice_id == invoice.id))
+        db.session.execute(purchase_item.delete()
+                           .where(purchase_item.c.purchase_invoice_id
+                                  == invoice.id))
         db.session.delete(invoice)
         db.session.commit()
         return jsonify({"message": "Invoice deleted successfully"}), 200
@@ -99,6 +117,9 @@ def delete_pur_invoice(invoice_id):
 @views_bp.route('/purchase_invoices/<invoice_id>',
                 methods=['PUT'], strict_slashes=False)
 def update_pur_invoice(invoice_id):
+    """
+    Update a purchase invoice
+    """
     with app.app_context():
         invoice = db.session.query(Purchase_invoice).get(invoice_id)
         if invoice is None:
