@@ -1,7 +1,21 @@
 from acc_app.models.base_model import BaseModel
-from acc_app import db, app, bcrypt
+from acc_app import db, app, bcrypt, login_manager
+from flask_login import UserMixin
+from sqlalchemy_serializer import SerializerMixin
 from datetime import datetime
 import uuid
+
+
+# login manager
+@login_manager.user_loader
+def load_user(user_id):
+    """
+    Loads a user by its id.
+
+    Returns:
+        The user with the given id.
+    """
+    return db.session.query(User).get(user_id)
 
 
 purchase_item = db.Table('purchase_item',
@@ -50,7 +64,7 @@ sales_item = db.Table('sales_item',
                                 db.Float, nullable=False))
 
 
-class User(BaseModel):
+class User(BaseModel, UserMixin, SerializerMixin):
     """
     User model class
     """
@@ -93,7 +107,7 @@ class User(BaseModel):
         return f"User('{self.buss_name}')"
 
 
-class Item(BaseModel):
+class Item(BaseModel, UserMixin):
     """
     Item model class
     """
@@ -112,7 +126,7 @@ class Item(BaseModel):
         return f"Item('{self.code}, {self.name}')"
 
 
-class Supplier(BaseModel):
+class Supplier(BaseModel, UserMixin):
     """
     Supplier model class
     """
@@ -128,7 +142,7 @@ class Supplier(BaseModel):
         return f"Supplier('{self.name}, {self.code}')"
 
 
-class Customer(BaseModel):
+class Customer(BaseModel, UserMixin):
     """
     Customer model class
     """
@@ -144,7 +158,7 @@ class Customer(BaseModel):
         return f"Customer('{self.name}, {self.code}')"
 
 
-class Purchase_invoice(BaseModel):
+class Purchase_invoice(BaseModel, UserMixin):
     """
     Purchase invoice model class
     """
@@ -166,7 +180,7 @@ class Purchase_invoice(BaseModel):
         return f"Purchase_Invoice('{self.code}')"
 
 
-class Sales_invoice(BaseModel):
+class Sales_invoice(BaseModel, UserMixin):
     """
     Sales invoice model class
     """
@@ -189,7 +203,7 @@ class Sales_invoice(BaseModel):
         return f"Sales_Invoice('{self.code}')"
 
 
-class Investment(BaseModel):
+class Investment(BaseModel, UserMixin):
     """
     Investment model class
     """
