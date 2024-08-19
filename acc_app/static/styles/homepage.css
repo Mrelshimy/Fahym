@@ -1,0 +1,156 @@
+body {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  background: rgb(255, 255, 255);
+  font-family: poppins, sans-serif;
+  color: rgb(24, 45, 63);
+}
+
+a {
+  text-decoration: none;
+  color: rgb(24, 45, 63);
+}
+
+.top-menu {
+  display: flex;
+  padding-top: 60px;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.top-menu ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.top-menu ul li a {
+  cursor: pointer;
+  padding: 15px;
+  font-weight: 500;
+  transition: ease 300ms;
+}
+
+.top-menu ul li a:hover {
+  background-color: rgb(236, 236, 236);
+  border-radius: 10px;
+}
+
+main {
+  padding: 50px;
+  margin: auto;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container .home-image {
+  width: 600px;
+  height: 500px;
+  background-image: url("../images/3112677.jpg");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-right: 50px;
+}
+
+.container .home-data {
+  max-width: 500px;
+}
+
+.container .home-data p {
+  text-align: left;
+  padding-left: 30px;
+}
+
+.container .home-data .features {
+  display: flex;
+}
+
+.container .home-data .features span {
+  font-size: 40px;
+}
+
+/* Media Queries */
+
+/* Tablet (768px and below) */
+@media (max-width: 768px) {
+  .top-menu {
+    flex-direction: column;
+    padding-top: 20px;
+  }
+
+  .container {
+    flex-direction: column;
+  }
+
+  .container .home-image {
+    width: 100%;
+    height: auto;
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+
+  .container .home-data p {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .container .home-data .features {
+    flex-direction: column;
+  }
+
+  .container .home-data .features .feature {
+    margin-bottom: 20px;
+  }
+}
+
+/* Mobile Phones (480px and below) */
+@media (max-width: 480px) {
+  .top-menu {
+    flex-direction: column;
+    padding-top: 10px;
+  }
+
+  .top-menu ul {
+    flex-direction: column;
+  }
+
+  .top-menu ul li a {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  main {
+    padding: 20px;
+  }
+
+  .container {
+    flex-direction: column;
+  }
+
+  .container .home-image {
+    width: 100%;
+    height: auto;
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+
+  .container .home-data p {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .container .home-data .features .feature h4 {
+    font-size: 16px;
+  }
+
+  .container .home-data .features span {
+    font-size: 30px;
+  }
+}

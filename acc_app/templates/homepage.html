@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fahym</title>
+    <link rel="stylesheet" href="../static/styles/homepage.css" />
+    <!-------------------- MATERIAL ICONS -------------------->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="top-menu">
+        <h1 class="buss-name">
+          <a href="http://localhost:5000/">Fahym</a>
+        </h1>
+        <div>
+          <ul>
+            {% if current_user.is_authenticated %}
+            <li><a href="http://localhost:5000/admin_panel">Dashboard</a></li>
+            <li><a href="http://localhost:5000/logout">Logout</a></li>
+            <li><a href="#">Contact us</a></li>
+            {% else %}
+            <li><a href="http://localhost:5000/register">Register</a></li>
+            <li><a href="http://localhost:5000/login">Login</a></li>
+            <li><a href="#">Contact us</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </header>
+    <main class="main-content">
+      <div class="container">
+        <div class="home-image"></div>
+        <div class="home-data">
+          <h2>Fahym, Your financial buddy</h2>
+          <p>
+            Innovative financial management application designed to simplify and
+            streamline your financial transactions. If you are a business aiming
+            to oversee financial activities, Fahym provides a user-friendly
+            platform to track, control, and analyze financial transactions in
+            real-time.
+          </p>
+          <div class="features">
+            <div class="feature">
+              <h4>Transaction Management</h4>
+              <span class="material-symbols-outlined">payments</span>
+            </div>
+            <div class="feature">
+              <h4>Expense Tracking</h4>
+              <span class="material-symbols-outlined">attach_money</span>
+            </div>
+            <div class="feature">
+              <h4>Financial Insights</h4>
+              <span class="material-symbols-outlined">trending_up</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
