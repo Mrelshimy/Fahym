@@ -1,0 +1,55 @@
+/* =============== GENERAL STYLES IMPORT =============== */
+@import url("general_styles.css");
+
+/* =============== MAIN SECTION =============== */
+main {
+  margin: 4rem auto;
+  width: 40vw;
+  background: var(--color-white);
+  border-radius: var(--border-radius-1);
+  box-shadow: var(--box-shadow);
+  padding: var(--card-padding);
+}
+
+main h1 {
+  text-align: center;
+}
+
+main .add-item .add-item-form {
+  display: flex;
+  flex-direction: column;
+}
+
+main .add-item .add-item-form label {
+  font-weight: 500;
+  margin-top: 1.4rem;
+}
+
+main .add-item .add-item-form input,
+main .add-item .add-item-form textarea {
+  background: var(--color-light);
+  padding: 0.8rem;
+  border-radius: var(--border-radius-1);
+  margin-top: 0.4rem;
+  transition: all 400ms ease;
+}
+
+main .add-item .add-item-form button {
+  background-color: transparent;
+  border: 2px dashed var(--color-primary);
+  color: var(--color-primary);
+  padding: 1.5rem;
+  border-radius: var(--border-radius-3);
+  cursor: pointer;
+  width: 30%;
+  margin: 2rem auto;
+  transition: all 300ms ease;
+  font-family: poppins, sans-serif;
+  font-weight: 600;
+}
+
+main .add-item .add-item-form button:hover {
+  box-shadow: none;
+  background: var(--color-primary);
+  color: var(--color-white);
+}
