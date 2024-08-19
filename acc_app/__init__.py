@@ -30,3 +30,13 @@ from acc_app.routes.item_routes import item_bp
 from acc_app.routes.supplier_routes import supplier_bp
 from acc_app.routes.investment_routes import investment_bp
 from acc_app.routes.user_routes import user_bp
+
+# Register the Blueprint
+app.register_blueprint(main_bp)
+app.register_blueprint(sales_bp)
+app.register_blueprint(purchase_bp)
+app.register_blueprint(customer_bp)
+app.register_blueprint(item_bp)
+app.register_blueprint(supplier_bp)
+app.register_blueprint(investment_bp)
+app.register_blueprint(user_bp)

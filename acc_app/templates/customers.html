@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sales</title>
+  <title>Customers</title>
   <!-------------------- JQUERY CDN -------------------->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <!-------------------- MATERIAL ICONS -------------------->
@@ -32,7 +32,7 @@
           <span class="material-symbols-outlined">grid_view</span>
           <h3>Dashboard</h3>
         </a>
-        <a href="http://localhost:5000/sales"  class="active">
+        <a href="http://localhost:5000/sales">
           <span class="material-symbols-outlined">storefront</span>
           <h3>Revenue</h3>
         </a>
@@ -44,7 +44,7 @@
           <span class="material-symbols-outlined">inventory_2</span>
           <h3>Items</h3>
         </a>
-        <a href="http://localhost:5000/customers">
+        <a href="http://localhost:5000/customers"  class="active">
           <span class="material-symbols-outlined">person</span>
           <h3>Customers</h3>
         </a>
@@ -64,29 +64,26 @@
     </aside>
     <!-------------------- MAIN SECTION -------------------->
     <main>
-      <h1>Sales</h1>
+      <h1>Customers</h1>
       <!-------------------- ITEMS TABLE -------------------->
       <div class="items-table">
         <div>
-          <a href="http://localhost:5000/sales/add_sales" class="add-product" style="margin-left: 2%">Add Invoice</a>
+          <a href="http://localhost:5000/customers/add_customer" class="add-product" style="margin-left: 2%">Add Customer</a>
         </div>  
         <table>
           <thead>
             <tr>
+              <th>Name</th>
               <th>Code</th>
-              <th>Customer</th>
-              <th>Date</th>
-              <th>Price</th>
+              <th>Email</th>
+              <th>Phone</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            <!-- Retreive data using AJAX in sales.js -->
+            <!-- Retreive data using AJAX in customers.js -->
           </tbody>
         </table>
-        <div class="pagination-pages">
-          <!-- Retreive data using AJAX in sales.js -->
-        </div>
       </div>
     </main>
     <!-------------------- RIGHT SIDE -------------------->
@@ -123,7 +120,7 @@
               <!-- <small class="text-muted">Last 24 hours</small> -->
             </div>
             <p id="top-item" class="text-muted">SH0001</h3>
-            <h5 class="success">66%%</h5>
+              <h5 class="success">66%%</h5>
           </div>
         </div>
         <div class="item offline">
@@ -195,7 +192,7 @@
     </div>
   </div>
   <script>const userId = '{{ current_user.id }}';</script>
-  <script src="../static/scripts/sales.js"></script>
+  <script src="../static/scripts/customers.js"></script>
   <script src="../static/scripts/right_side_analytics.js"></script>
 </body>
 </html>
