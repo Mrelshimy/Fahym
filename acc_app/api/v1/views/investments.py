@@ -29,7 +29,10 @@ def get_initial_investment(user_id):
             items = db.session.query(Investment).filter_by(user_id=user_id)\
                 .order_by(Investment.created_at).all()
             data = [item.to_dict() for item in items]
-            return jsonify(data[-1]), 200
+            if data == [] or not data:
+                return jsonify([])
+            else:
+                return jsonify(data[-1]), 200
         else:
             abort(404, 'User not found')
 
