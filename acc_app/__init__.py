@@ -2,6 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
+from flask_mail import Mail
 from config import Config
 
 
@@ -21,7 +22,13 @@ bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'user_bp.login'
 
-#Import Routes
+# Create a Mail instance
+mail = Mail(app)
+
+# Create a secret key
+secret_key = app.config.get('SECRET_KEY')
+
+# Import Routes
 from acc_app.routes.main_routes import main_bp
 from acc_app.routes.sales_routes import sales_bp
 from acc_app.routes.purchase_routes import purchase_bp

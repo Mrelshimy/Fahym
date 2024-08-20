@@ -1,9 +1,10 @@
 from acc_app.models.base_model import BaseModel
-from acc_app import db, app, bcrypt, login_manager
+from acc_app import db, app, bcrypt, login_manager, secret_key
 from flask_login import UserMixin
 from sqlalchemy_serializer import SerializerMixin
 from datetime import datetime
 import uuid
+import jwt
 
 
 # login manager
@@ -102,6 +103,17 @@ class User(BaseModel, UserMixin, SerializerMixin):
         Checks the user's password.
         """
         return bcrypt.check_password_hash(self.password, passwd)
+
+    def get_token(self):
+        """
+        Generates a token for the user.
+
+        Returns:
+            A token for the user.
+        """
+        encoded_user_id = jwt.encode({'user_id': self.id},
+                                     secret_key, algorithm='HS256')
+        return encoded_user_id
 
     def __repr__(self):
         return f"User('{self.buss_name}')"

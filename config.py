@@ -10,8 +10,8 @@ class Config:
 {os.environ["DB_PASS"]}\
 @{os.environ["DB_HOST"]}/{os.environ["DB_NAME"]}'
     SECRET_KEY = os.urandom(32)
-    # MAIL_SERVER = 'smtp.gmail.com'
-    # MAIL_PORT = 465
-    # MAIL_USE_SSL = True
-    # MAIL_USERNAME = 'blogblend.info@gmail.com'
-    # MAIL_PASSWORD = os.environ.get('EMAIL_PASS')
+    MAIL_SERVER = 'smtp.gmail.com'
+    MAIL_PORT = 465
+    MAIL_USE_SSL = True
+    MAIL_USERNAME = 'mraafat.elsayed@gmail.com'
+    MAIL_PASSWORD = os.environ.get('EMAIL_PASS')

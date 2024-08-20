@@ -52,3 +52,16 @@ main .add-item .add-item-form input[type="submit"]:hover {
   background: var(--color-primary);
   color: var(--color-white);
 }
+
+main .forgot-password {
+  margin-top: 10px;
+  color: var(--color-dark);
+  font-weight: 500;
+  padding: 10px;
+}
+
+main .forgot-password:hover {
+  background-color: var(--color-light);
+  border-radius: var(--border-radius-1);
+  width: 21%;
+}

@@ -14,7 +14,8 @@ class RegistrationForm(FlaskForm):
     """
     email = EmailField("Email", validators=[DataRequired(), Email()])
     buss_name = StringField("Buss_name",
-                           validators=[DataRequired(), Length(min=2, max=100)])
+                            validators=[DataRequired(),
+                                        Length(min=2, max=100)])
     password = PasswordField("Password",
                              validators=[DataRequired(), Length(min=6)])
     password2 = PasswordField("Confirm password",
@@ -50,3 +51,38 @@ class LoginForm(FlaskForm):
                              validators=[DataRequired(), Length(min=6)])
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login')
+
+
+class RequestResetForm(FlaskForm):
+    """
+    A form for requesting a password reset.
+    """
+    email = EmailField('Email', validators=[DataRequired(), Email()])
+    submit = SubmitField('Request Reset')
+
+    def validate_email(self, email):
+        """
+        Validates the email field.
+
+        args:
+            email: The email to validate.
+
+        returns:
+            A validation error if the email is invalid.
+        """
+        u = User.query.filter_by(email=email.data).first()
+        if u is None:
+            raise ValidationError('There is no account with\
+                                  that email. You must register first.')
+
+
+class ResetPasswordForm(FlaskForm):
+    """
+    A form for resetting a password.
+    """
+    password = PasswordField("Password",
+                             validators=[DataRequired(), Length(min=6)])
+    password2 = PasswordField("Confirm password",
+                              validators=[DataRequired(),
+                                          Length(min=6), EqualTo('password')])
+    submit = SubmitField('Reset Password')
