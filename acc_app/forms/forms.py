@@ -52,6 +52,27 @@ class LoginForm(FlaskForm):
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login')
 
+    def validate_email(self, email):
+        """
+        Validates the email field.
+
+        args:
+            email: The email to validate.
+
+        returns:
+            A validation error if the email is invalid.
+        """
+        u = User.query.filter_by(email=email.data).first()
+        if u is None:
+            raise ValidationError('There is no account with\
+                                  that email. You must register first.')
+    
+    def validate_password(self, password):
+        """ Validate password field """
+        u = User.query.filter_by(email=self.email.data).first()
+        if u is not None and not u.check_password(password.data):
+            raise ValidationError('Password is incorrect.')
+
 
 class RequestResetForm(FlaskForm):
     """
