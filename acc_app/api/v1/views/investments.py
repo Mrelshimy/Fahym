@@ -32,7 +32,7 @@ def get_initial_investment(user_id):
             if data == [] or not data:
                 return jsonify([])
             else:
-                return jsonify(data[-1]), 200
+                return jsonify(data[0]), 200
         else:
             abort(404, 'User not found')
 
