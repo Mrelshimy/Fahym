@@ -6,6 +6,7 @@ from acc_app.models.models import User
 from acc_app import app, db, mail, secret_key
 from flask_login import current_user, login_user, logout_user, login_required
 import jwt
+from uuid import uuid4
 
 
 user_bp = Blueprint('user_bp', __name__)
@@ -46,7 +47,8 @@ def register():
 
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = User(email=form.email.data,
+        user = User(id=str(uuid4()),
+                    email=form.email.data,
                     password=form.password.data,
                     buss_name=form.buss_name.data)
         user.set_password(user.password)
