@@ -66,7 +66,7 @@ class LoginForm(FlaskForm):
         if u is None:
             raise ValidationError('There is no account with\
                                   that email. You must register first.')
-    
+
     def validate_password(self, password):
         """ Validate password field """
         u = User.query.filter_by(email=self.email.data).first()

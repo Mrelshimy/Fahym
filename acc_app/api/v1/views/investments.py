@@ -80,6 +80,7 @@ def add_investments(user_id):
         else:
             abort(400, 'Request is not JSON')
 
+
 @views_bp.route('/investments/<investment_id>',
                 methods=['DELETE'], strict_slashes=False)
 def delete_investment(investment_id):
