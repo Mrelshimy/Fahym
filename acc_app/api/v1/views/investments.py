@@ -79,3 +79,14 @@ def add_investments(user_id):
                 abort(404, 'User not found')
         else:
             abort(400, 'Request is not JSON')
+
+@views_bp.route('/investments/<investment_id>',
+                methods=['DELETE'], strict_slashes=False)
+def delete_investment(investment_id):
+    with app.app_context():
+        investment = db.session.query(Investment).get(investment_id)
+        if investment is None:
+            abort(404)
+        db.session.delete(investment)
+        db.session.commit()
+        return jsonify({"message": "investment deleted successfully"}), 200
